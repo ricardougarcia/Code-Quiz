@@ -10,10 +10,12 @@ var startingTime = 05;
 // Question boxes
 var quizAreaForBoxes = document.getElementById("#quizAreaForBoxes");
 var questionBox1 = document.getElementById("#questionBox1");
+var h2QuestionBox = document.querySelector(".h2QuestionBox");
 var answerButtonA = document.querySelector(".answerButtonA");
 var answerButtonB = document.querySelector(".answerButtonB");
 var answerButtonC = document.querySelector(".answerButtonC");
 var answerButtonD = document.querySelector(".answerButtonD");
+
 // Storing time as score
 
 // Storing all scores
@@ -25,10 +27,26 @@ var startGameButton = document.getElementById("#startGameButton");
 // // Accessing element by id
 
 // DESIGN---------------------------------
-answerButtonA.setAttribute("style", "color:white; background-color: purple;");
-answerButtonB.setAttribute("style", "color:white; background-color: purple;");
-answerButtonC.setAttribute("style", "color:white; background-color: purple;");
-answerButtonD.setAttribute("style", "color:white; background-color: purple;");
+answerButtonA.setAttribute(
+  "style",
+  "color:white; background-color: purple; font-size: 20px; font-weight: bold;"
+);
+answerButtonB.setAttribute(
+  "style",
+  "color:white; background-color: purple; font-size: 20px; font-weight: bold;"
+);
+answerButtonC.setAttribute(
+  "style",
+  "color:white; background-color: purple; font-size: 20px; font-weight: bold;"
+);
+answerButtonD.setAttribute(
+  "style",
+  "color:white; background-color: purple; font-size: 20px; font-weight: bold;"
+);
+h2QuestionBox.setAttribute(
+  "style",
+  "color:black; font-size: 25px; font-weight: bold; font-family: Arial"
+);
 
 // FUNCTIONS------------------------------
 
