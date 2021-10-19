@@ -30,3 +30,28 @@
 a:link {
   text-decoration: none;
 }
+
+#quizAreaForBoxes {
+  display: flex;
+  flex-direction: row;
+  /* Centers along the main axis determined by flex-direction */
+  justify-content: center;
+  /* Centers along the opposite axis */
+  align-items: center;
+  width: 50%;
+  /* Uses the height of the viewport */
+  height: 36vh;
+  margin: 0 auto;
+  border-style: none;
+  border-width: 2px;
+}
+
+#questionBox1 button {
+  display: flex;
+  flex-direction: row;
+  /* Centers along the main axis determined by flex-direction */
+  justify-content: center;
+  /* Centers along the opposite axis */
+  align-items: center;
+  margin: 5px;
+}
