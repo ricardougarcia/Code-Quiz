@@ -1,30 +1,58 @@
 // STARTING DATA (GLOBAL VARIABLES)
+// Start Game Button. NBot sure if I should reference the class
+var startGameButtonBox = document.getElementById("startGameButtonBox");
+var startGameButton = document.getElementById("startGameButton");
 // Selects element id countdownTimerOnScreen
 var timeEl = document.querySelector("#countdownTimerOnScreen");
 // Selects element by id main
-var mainEl = document.getElementById("#main");
+var mainEl = document.getElementById("main");
 // Selects element by id viewHighScoresButton
-var viewHighScoresButton = document.getElementById("#viewHighScoresButton");
+var viewHighScoresButton = document.getElementById("viewHighScoresButton");
 // Starting time variable
-var startingTime = 05;
+var startingTime = 60;
 // Question boxes
-var quizAreaForBoxes = document.getElementById("#quizAreaForBoxes");
-var questionBox1 = document.getElementById("#questionBox1");
+var quizAreaForBoxes = document.getElementById("quizAreaForBoxes");
+var questionBox1 = document.getElementById("questionBox1");
 var h2QuestionBox = document.querySelector(".h2QuestionBox");
 var answerButtonA = document.querySelector(".answerButtonA");
 var answerButtonB = document.querySelector(".answerButtonB");
 var answerButtonC = document.querySelector(".answerButtonC");
 var answerButtonD = document.querySelector(".answerButtonD");
+var questionsArray = [
+  {
+    question: "Which is not a primitive data type?",
+    choices: ["Boolean", "String", "Array", "Number"],
+    correctAnswer: "Array",
+  },
+  {
+    question: "What syntax is used to call a function?",
+    choices: ["Question Mark", "Exclamation Point", "Paranthesis", "Bracket"],
+    correctAnswer: "Paranthesis",
+  },
+];
+var counter = 0;
+function renderQuestion() {
+  console.log(questionsArray[counter].question);
+  h2QuestionBox.textContent = questionsArray[counter].question;
+  answerButtonA.textContent = questionsArray[counter].choices[0];
+  answerButtonB.textContent = questionsArray[counter].choices[1];
+  answerButtonC.textContent = questionsArray[counter].choices[2];
+  answerButtonD.textContent = questionsArray[counter].choices[3];
+}
+function checkUserChoice(event) {
+  console.log(event.target.textContent);
+  if (event.target.textContent === questionsArray[counter].correctAnswer) {
+    console.log(true);
+  } else {
+    console.log(false);
+  }
 
+  counter++;
+  renderQuestion();
+}
 // Storing time as score
 
 // Storing all scores
-
-// Start Game Button. NBot sure if I should reference the class
-var startGameButtonBox = document.getElementById("#startGameButtonBox");
-var startGameButton = document.getElementById("#startGameButton");
-
-// // Accessing element by id
 
 // DESIGN---------------------------------
 answerButtonA.setAttribute(
@@ -104,3 +132,6 @@ setTime();
 // var displayScoresBox = function displayScores() {
 //     prompt("Score: " + remainingTime + player1Score "var for their remaining time" + player2Score + "var for their remaining time");
 //   }
+
+startGameButton.addEventListener("click", renderQuestion);
+questionBox1.addEventListener("click", checkUserChoice);
