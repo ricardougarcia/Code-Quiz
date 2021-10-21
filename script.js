@@ -10,6 +10,7 @@ var mainEl = document.getElementById("main");
 var viewHighScoresButton = document.getElementById("viewHighScoresButton");
 // Starting time variable
 var startingTime = 60;
+
 // Question boxes
 var quizAreaForBoxes = document.getElementById("quizAreaForBoxes");
 var questionBox1 = document.getElementById("questionBox1");
@@ -26,28 +27,34 @@ var questionsArray = [
   },
   {
     question: "What syntax is used to call a function?",
-    choices: ["Question Mark", "Exclamation Point", "Paranthesis", "Bracket"],
-    correctAnswer: "Paranthesis",
+    choices: ["Question Mark", "Exclamation Point", "Parentheses", "Bracket"],
+    correctAnswer: "Parentheses",
   },
 ];
-var counter = 0;
+var questionNumber = 0;
+// This renders or presents the question and answer options for the user.
 function renderQuestion() {
-  console.log(questionsArray[counter].question);
-  h2QuestionBox.textContent = questionsArray[counter].question;
-  answerButtonA.textContent = questionsArray[counter].choices[0];
-  answerButtonB.textContent = questionsArray[counter].choices[1];
-  answerButtonC.textContent = questionsArray[counter].choices[2];
-  answerButtonD.textContent = questionsArray[counter].choices[3];
+  console.log(questionsArray[questionNumber].question);
+  h2QuestionBox.textContent = questionsArray[questionNumber].question;
+  answerButtonA.textContent = questionsArray[questionNumber].choices[0];
+  answerButtonB.textContent = questionsArray[questionNumber].choices[1];
+  answerButtonC.textContent = questionsArray[questionNumber].choices[2];
+  answerButtonD.textContent = questionsArray[questionNumber].choices[3];
 }
-function checkUserChoice(event) {
-  console.log(event.target.textContent);
-  if (event.target.textContent === questionsArray[counter].correctAnswer) {
+// This checks the user choice
+function checkUserChoice(userClick) {
+  console.log(userClick);
+  //   console.log(event.target.textContent);
+  if (
+    userClick.target.textContent ===
+    questionsArray[questionNumber].correctAnswer
+  ) {
     console.log(true);
   } else {
     console.log(false);
   }
 
-  counter++;
+  questionNumber++;
   renderQuestion();
 }
 // Storing time as score
