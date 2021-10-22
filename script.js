@@ -9,7 +9,7 @@ var mainEl = document.getElementById("main");
 // Selects element by id viewHighScoresButton
 var viewHighScoresButton = document.getElementById("viewHighScoresButton");
 // Starting time variable
-var startingTime = 60;
+var startingTime = 5;
 
 // Question boxes
 var quizAreaForBoxes = document.getElementById("quizAreaForBoxes");
@@ -29,6 +29,11 @@ var questionsArray = [
     question: "What syntax is used to call a function?",
     choices: ["Question Mark", "Exclamation Point", "Parentheses", "Bracket"],
     correctAnswer: "Parentheses",
+  },
+  {
+    question: "Is Java and Javascript the same?",
+    choices: ["Yes", "No", "Blue", "Dog"],
+    correctAnswer: "No",
   },
 ];
 var questionNumber = 0;
@@ -94,20 +99,19 @@ function setTime() {
     if (startingTime === 0) {
       // Stops execution of action at set interval
       clearInterval(timerInterval);
-      // Calls function to create and append image. But need to change to
       // Box that takes and stores initials user input and display high scores
-      sendMessage();
+      yourFinalScoreAndInitial();
     }
+    // IF statement here for user completeing last question
   }, 1000);
 }
 
-// Function to create and append image. switch to prompt for scores at the end possibly?
-function sendMessage() {
-  timeEl.textContent = " ";
-  // change this to be a box showing high scores
-  var imgEl = document.createElement("img");
-  imgEl.setAttribute("src", "images/image_1.jpg");
-  mainEl.appendChild(imgEl);
+// Function to display scores at the end?
+function yourFinalScoreAndInitial() {
+  var zeroScoreInitials = prompt(
+    "Your score is" + " " + startingTime,
+    "Please type your initials"
+  );
 }
 
 setTime();
@@ -133,12 +137,7 @@ setTime();
 
 // THEN the game is over
 
-// WHEN the game is over, THEN I can save my initials and my score.
-// create variable for remainingTime. Create the storage for previous player1Score and player2Score.
-// do I have to name the function to call
-// var displayScoresBox = function displayScores() {
-//     prompt("Score: " + remainingTime + player1Score "var for their remaining time" + player2Score + "var for their remaining time");
-//   }
-
 startGameButton.addEventListener("click", renderQuestion);
 questionBox1.addEventListener("click", checkUserChoice);
+// trying to use this to identiofy the last click to trigger prompt
+questionsArray.choices.addEventListener("click", yourFinalScoreAndInitial);
