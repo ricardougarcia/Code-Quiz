@@ -57,6 +57,12 @@ function checkUserChoice(userClick) {
     console.log(true);
   } else {
     console.log(false);
+    // docked time. does this influence the setTime function?
+    startingTime = startingTime - 5;
+    // if it reaches zero then end game and stop timer
+    // if (startingTime < 1) {
+    //   clearInterval(timerInterval);
+    // }
   }
 
   questionNumber++;
