@@ -19,6 +19,20 @@
     </main>
     <!-- This is the question answer boxes -->
     <div id="quizAreaForBoxes">
+      <div id="initialsForm">
+        <form id="form">
+          <label>Test field: <input id="initialsInput" type="text" /></label>
+          <br /><br />
+          <button id="submitButton" type="submit">Submit Initials</button>
+        </form>
+      </div>
+      <div id="listOfHighScores">
+        <ul>
+          <li>Coffee</li>
+          <li>Tea</li>
+          <li>Milk</li>
+        </ul>
+      </div>
       <div id="questionBox1">
         <!-- Data Box with quiz question and answers-->
         <h2 class="h2QuestionBox"></h2>
@@ -26,6 +40,7 @@
           <button class="answerButtonB">
             <button class="answerButtonC">
               <button class="answerButtonD"></button>
+              <p id="correctOrWrongText"></p>
             </button>
           </button>
         </button>

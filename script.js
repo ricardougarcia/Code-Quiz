@@ -8,6 +8,14 @@ var timeEl = document.querySelector("#countdownTimerOnScreen");
 var mainEl = document.getElementById("main");
 // Selects element by id viewHighScoresButton
 var viewHighScoresButton = document.getElementById("viewHighScoresButton");
+// Div element of form. End of game initials form before high score
+var initialsForm = document.getElementById("initialsForm");
+initialsForm.style.display = "none";
+// Form element
+var form = document.getElementById("form");
+// List of high scores at end of game
+var listOfHighScores = document.getElementById("listOfHighScores");
+listOfHighScores.style.display = "none";
 // Starting time variable
 var startingTime = 5;
 
@@ -37,40 +45,6 @@ var questionsArray = [
   },
 ];
 var questionNumber = 0;
-// This renders or presents the question and answer options for the user.
-function renderQuestion() {
-  console.log(questionsArray[questionNumber].question);
-  h2QuestionBox.textContent = questionsArray[questionNumber].question;
-  answerButtonA.textContent = questionsArray[questionNumber].choices[0];
-  answerButtonB.textContent = questionsArray[questionNumber].choices[1];
-  answerButtonC.textContent = questionsArray[questionNumber].choices[2];
-  answerButtonD.textContent = questionsArray[questionNumber].choices[3];
-}
-// This checks the user choice
-function checkUserChoice(userClick) {
-  console.log(userClick);
-  //   console.log(event.target.textContent);
-  if (
-    userClick.target.textContent ===
-    questionsArray[questionNumber].correctAnswer
-  ) {
-    console.log(true);
-  } else {
-    console.log(false);
-    // docked time. does this influence the setTime function?
-    startingTime = startingTime - 5;
-    // if it reaches zero then end game and stop timer
-    // if (startingTime < 1) {
-    //   clearInterval(timerInterval);
-    // }
-  }
-
-  questionNumber++;
-  renderQuestion();
-}
-// Storing time as score
-
-// Storing all scores
 
 // DESIGN---------------------------------
 answerButtonA.setAttribute(
@@ -93,8 +67,21 @@ h2QuestionBox.setAttribute(
   "style",
   "color:black; font-size: 25px; font-weight: bold; font-family: Arial"
 );
+startGameButton.setAttribute(
+  "style",
+  "color:white; background-color: purple; font-size: 20px; font-weight: bold;"
+);
 
 // FUNCTIONS------------------------------
+// This renders or presents the question and answer options for the user.
+function renderQuestion() {
+  console.log(questionsArray[questionNumber].question);
+  h2QuestionBox.textContent = questionsArray[questionNumber].question;
+  answerButtonA.textContent = questionsArray[questionNumber].choices[0];
+  answerButtonB.textContent = questionsArray[questionNumber].choices[1];
+  answerButtonC.textContent = questionsArray[questionNumber].choices[2];
+  answerButtonD.textContent = questionsArray[questionNumber].choices[3];
+}
 
 function setTime() {
   // Sets interval in variable
@@ -102,7 +89,7 @@ function setTime() {
     startingTime--;
     timeEl.textContent = "Timer:" + " " + startingTime;
 
-    if (startingTime === 0) {
+    if (startingTime <= 0) {
       // Stops execution of action at set interval
       clearInterval(timerInterval);
       // Box that takes and stores initials user input and display high scores
@@ -112,15 +99,50 @@ function setTime() {
   }, 1000);
 }
 
-// Function to display scores at the end?
+// Hide quiz area at end of game
 function yourFinalScoreAndInitial() {
-  var zeroScoreInitials = prompt(
-    "Your score is" + " " + startingTime,
-    "Please type your initials"
-  );
+  questionBox1.style.display = "none";
+  initialsForm.style.display = "block";
 }
 
-setTime();
+function initialsFormUserInput(event) {
+  event.preventDefault();
+  console.log(event);
+  var initialsInput = event.target.elements.initialsInput.value;
+  console.log(initialsInput);
+  // TO DO: store to local
+
+  // Trigger the new window of high scores
+  initialsForm.style.display = "none";
+  // TO DO: Get from local storage and dynamically add to list.
+  // Might have to sort from local storage
+  listOfHighScores.style.display = "block";
+}
+// This checks the user choice
+function checkUserChoice(userClick) {
+  console.log(userClick);
+  //   console.log(event.target.textContent);
+  if (
+    userClick.target.textContent ===
+    questionsArray[questionNumber].correctAnswer
+  ) {
+    console.log(true);
+  } else {
+    console.log(false);
+    // docked time. does this influence the setTime function?
+    startingTime = startingTime - 5;
+  }
+
+  questionNumber++;
+  renderQuestion();
+}
+// Storing time as score
+
+// Storing all scores
+
+// Display options for initials input
+
+//
 
 // USER INTERACTIONS----------------------
 // Accept button to begin quiz
@@ -142,8 +164,11 @@ setTime();
 // WHEN all questions are answered or the timer reaches 0
 
 // THEN the game is over
-
+form.addEventListener("submit", initialsFormUserInput);
+startGameButton.addEventListener("click", setTime);
 startGameButton.addEventListener("click", renderQuestion);
+// Add remove start Game Button here listener and funciton above
+// startGameButton.addEventListener("click", removeStartGameButton);
 questionBox1.addEventListener("click", checkUserChoice);
 // trying to use this to identiofy the last click to trigger prompt
 questionsArray.choices.addEventListener("click", yourFinalScoreAndInitial);
