@@ -12,9 +12,9 @@ The following image shows the web application's appearance and functionality:
 
 ## Links
 
-- The URL of the deployed application.
+- The URL of the deployed application. https://ricardougarcia.github.io/Code-Quiz/
 
-- The URL of the GitHub repository, with a unique name and a readme describing the project.
+- The URL of the GitHub repository, with a unique name and a readme describing the project. https://github.com/ricardougarcia/Code-Quiz.git
 
 # License
 
