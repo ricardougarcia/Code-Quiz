@@ -80,14 +80,14 @@ startGameButton.setAttribute(
 );
 
 // FUNCTIONS------------------------------
-// Hides question box. User interaction will trigger appearance in setTime function
 
-// This function allows user to see highscores
+// TO DO: This function allows user to see highscores
 function viewHighScoresBox() {
   // listOfHighScores.style.display = "block";
   // questionBox1.style.display = "none";
   // initialsForm.style.display = "none";
 }
+
 // This function Starts timer and displays time on screen
 function setTime() {
   // Sets interval in variable
@@ -164,12 +164,10 @@ function initialsFormUserInput(event) {
     score: startingTime,
   };
   getScores.push(tempObject);
-  // TO DO: store to local
+  // Stores scores locally
   localStorage.setItem("userInitials", JSON.stringify(getScores));
-  // Trigger the new window of high scores
   initialsForm.style.display = "none";
   // TO DO: Get from local storage and dynamically add to list.
-  // Might have to sort from local storage
   listOfHighScores.style.display = "block";
   var olEl = document.createElement("ol");
   for (var i = 0; i < getScores.length; i++) {
