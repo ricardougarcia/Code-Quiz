@@ -82,3 +82,14 @@ a:link {
   font-weight: bold;
   justify-items: center;
 }
+
+#listOfHighScores {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: rgb(202, 172, 207);
+  color: rgb(27, 26, 26);
+  font-size: 18px;
+  padding: 10px;
+  font-weight: 300;
+  justify-content: center;
+  justify-items: center;
+}

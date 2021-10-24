@@ -7,7 +7,7 @@ var timeEl = document.querySelector("#countdownTimerOnScreen");
 // Selects element by id main
 var mainEl = document.getElementById("main");
 // p under the answer buttons display correct or wrong!
-var correctOrWrongText = document.getElementById("correctOrWrongText");
+var correctOrWrongText = document.querySelectorAll("#correctOrWrongText");
 // Selects element by id viewHighScoresButton
 var viewHighScoresButton = document.getElementById("viewHighScoresButton");
 // Div element of form. End of game initials form before high score
@@ -18,9 +18,14 @@ var form = document.getElementById("form");
 // List of high scores at end of game
 var listOfHighScores = document.getElementById("listOfHighScores");
 listOfHighScores.style.display = "none";
+// Scores list from local storage
+var scores = document.querySelectorAll(".scores");
+// Gets local storage
+var getScores = JSON.parse(localStorage.getItem("userInitials")) || [];
 // Starting time variable
-var startingTime = 10;
-
+var startingTime = 60;
+//
+var timerInterval;
 // Question boxes
 var quizAreaForBoxes = document.getElementById("quizAreaForBoxes");
 var questionBox1 = document.getElementById("questionBox1");
@@ -75,10 +80,18 @@ startGameButton.setAttribute(
 );
 
 // FUNCTIONS------------------------------
+// Hides question box. User interaction will trigger appearance in setTime function
+
+// This function allows user to see highscores
+function viewHighScoresBox() {
+  // listOfHighScores.style.display = "block";
+  // questionBox1.style.display = "none";
+  // initialsForm.style.display = "none";
+}
 // This function Starts timer and displays time on screen
 function setTime() {
   // Sets interval in variable
-  var timerInterval = setInterval(function () {
+  timerInterval = setInterval(function () {
     startingTime--;
     timeEl.textContent = "Timer:" + " " + startingTime;
 
@@ -88,18 +101,21 @@ function setTime() {
       // Box that takes and stores initials user input and display high scores
       yourFinalScoreAndInitial();
     }
-    // IF statement here for user completeing last question
   }, 1000);
 }
 
 // This renders or presents the question and answer options for the user.
 function renderQuestion() {
-  console.log(questionsArray[questionNumber].question);
+  // console.log(questionsArray[questionNumber].question);
   h2QuestionBox.textContent = questionsArray[questionNumber].question;
   answerButtonA.textContent = questionsArray[questionNumber].choices[0];
   answerButtonB.textContent = questionsArray[questionNumber].choices[1];
   answerButtonC.textContent = questionsArray[questionNumber].choices[2];
   answerButtonD.textContent = questionsArray[questionNumber].choices[3];
+}
+// Removes the start game button
+function removeStartGameButton() {
+  startGameButton.style.display = "none";
 }
 // This checks the user choice
 function checkUserChoice(userClick) {
@@ -110,9 +126,12 @@ function checkUserChoice(userClick) {
     questionsArray[questionNumber].correctAnswer
   ) {
     console.log(true);
+    // TO DO: add "correct" in correctOrWrongText
   } else {
     console.log(false);
-    // docked time. does this influence the setTime function?
+    // TO DO: add "wrong" in correctOrWrongText
+
+    // docked time for wrong answer
     startingTime = startingTime - 5;
   }
 
@@ -124,32 +143,46 @@ function checkUserChoice(userClick) {
   renderQuestion();
 }
 
-// var findIndex = questionsArray.indexOf("choices");
-// console.log(findIndex);
-
 // Hide quiz area at end of game
 function yourFinalScoreAndInitial() {
+  clearInterval(timerInterval);
   questionBox1.style.display = "none";
   initialsForm.style.display = "block";
+
+  // add in string of score above input field
 }
 
 // This function triggers the initials form to display for user to submit initials and see their score.
 function initialsFormUserInput(event) {
   event.preventDefault();
-  console.log(event);
+  // console.log(event);
   var initialsInput = event.target.elements.initialsInput.value;
-  console.log(initialsInput);
-  // TO DO: store to local
+  // console.log(initialsInput);
 
+  var tempObject = {
+    userInitials: initialsInput,
+    score: startingTime,
+  };
+  getScores.push(tempObject);
+  // TO DO: store to local
+  localStorage.setItem("userInitials", JSON.stringify(getScores));
   // Trigger the new window of high scores
   initialsForm.style.display = "none";
   // TO DO: Get from local storage and dynamically add to list.
   // Might have to sort from local storage
   listOfHighScores.style.display = "block";
+  var olEl = document.createElement("ol");
+  for (var i = 0; i < getScores.length; i++) {
+    var liEl = document.createElement("li");
+    var initialsEl = document.createElement("span");
+    initialsEl.textContent = "User: " + getScores[i].userInitials + ",  ";
+    var scoresEl = document.createElement("span");
+    scoresEl.textContent = "Score: " + getScores[i].score;
+    liEl.append(initialsEl, scoresEl);
+    olEl.append(liEl);
+  }
+  listOfHighScores.append(olEl);
 }
-// Storing time as score
-
-// Storing all scores
 
 // USER INTERACTIONS----------------------
 
@@ -159,17 +192,14 @@ startGameButton.addEventListener("click", setTime);
 // user starts game and renderQuestion function is triggered
 startGameButton.addEventListener("click", renderQuestion);
 
+// Add remove start Game Button here listener and funciton above
+startGameButton.addEventListener("click", removeStartGameButton);
+
 // user selects choice triggering checkUserChoice function
 questionBox1.addEventListener("click", checkUserChoice);
 
 // user submits initials at end of game
 form.addEventListener("submit", initialsFormUserInput);
 
-// user submit last answer triggering initialsFormUserInput
-// questionsArray.choices[2].addEventListener(
-//   "click",
-//   yourFinalScoreAndInitial
-// );
-
-// Add remove start Game Button here listener and funciton above
-// startGameButton.addEventListener("click", removeStartGameButton);
+// User clicks View Highscores
+viewHighScoresButton.addEventListener("click", viewHighScoresBox);
