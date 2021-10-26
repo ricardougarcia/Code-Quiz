@@ -83,9 +83,19 @@ startGameButton.setAttribute(
 
 // TO DO: This function allows user to see highscores
 function viewHighScoresBox() {
-  // listOfHighScores.style.display = "block";
-  // questionBox1.style.display = "none";
-  // initialsForm.style.display = "none";
+  listOfHighScores.style.display = "block";
+  listOfHighScores.innerHTML = "";
+  var olEl = document.createElement("ol");
+  for (var i = 0; i < getScores.length; i++) {
+    var liEl = document.createElement("li");
+    var initialsEl = document.createElement("span");
+    initialsEl.textContent = "User: " + getScores[i].userInitials + ",  ";
+    var scoresEl = document.createElement("span");
+    scoresEl.textContent = "Score: " + getScores[i].score;
+    liEl.append(initialsEl, scoresEl);
+    olEl.append(liEl);
+  }
+  listOfHighScores.append(olEl);
 }
 
 // This function Starts timer and displays time on screen
