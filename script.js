@@ -1,5 +1,5 @@
 // STARTING DATA (GLOBAL VARIABLES)
-// Start Game Button. NBot sure if I should reference the class
+// Start Game Button and box
 var startGameButtonBox = document.getElementById("startGameButtonBox");
 var startGameButton = document.getElementById("startGameButton");
 // Selects element id countdownTimerOnScreen
@@ -113,6 +113,10 @@ function setTime() {
     }
   }, 1000);
 }
+// Remove Highscores box if it is on the page
+function removeHighscores() {
+  listOfHighScores.style.display = "none";
+}
 
 // This renders or presents the question and answer options for the user.
 function renderQuestion() {
@@ -200,8 +204,11 @@ startGameButton.addEventListener("click", setTime);
 // user starts game and renderQuestion function is triggered
 startGameButton.addEventListener("click", renderQuestion);
 
-// Add remove start Game Button here listener and funciton above
+// Removes the start game button when game initiates.
 startGameButton.addEventListener("click", removeStartGameButton);
+
+// Removes Highscores box if it is on the page at game initiation
+startGameButton.addEventListener("click", removeHighscores);
 
 // user selects choice triggering checkUserChoice function
 questionBox1.addEventListener("click", checkUserChoice);
